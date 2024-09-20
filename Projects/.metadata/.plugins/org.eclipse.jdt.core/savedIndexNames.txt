@@ -1,6 +1,0 @@
-INDEX VERSION 1.134+/Users/abereni4u/Dropbox/Github/CS2_DCC/Projects/.metadata/.plugins/org.eclipse.jdt.core
-548516555.index
-1317970202.index
-1865797976.index
-1402316501.index
-3616010400.index

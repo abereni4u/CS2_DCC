@@ -59,7 +59,7 @@ public class BoundingBox {
 	}
 	
 	public double getMinDum() {
-		
+		System.out.println("Test");
 	}
 	
 	
