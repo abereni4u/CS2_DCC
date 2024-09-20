@@ -1,0 +1,351 @@
+/**
+ * 
+ */
+
+/**
+ * The StormRecord Java class represents a single storm tracking event record in the database.
+ * It consists of fields that holds information read from the “htracks_na_cps142_dcc.csv” file.
+ */
+public class StormRecord {
+	
+	// ----------------------------------------------//
+	// FIELDS
+	//----------------------------------------------//
+	
+	// FIELD NAMES
+	private String id, name, timestamp, status; 
+	private int year, number, category;
+	private double latitude, longitude, wind, pressure,
+				speed, direction;
+	
+	// FIELD POSITIONS
+	final int ID_POS = 18, YEAR_POS = 1, NUMBER_POS = 2, NAME_POS = 5, TIMESTAMP_POS = 6,
+			  LATITUDE_POS = 19, LONGITUDE_POS = 20, STATUS_POS = 21, WIND_POS = 22, 
+			  PRESSURE_POS = 23, CATEGORY_POS = 24, SPEED_POS = 25, DIRECTION_POS = 26;
+	
+	// FIELD LABELS
+	private String nameLabel = "Name:", yearLabel = "Year:", numberLabel = "Number:",
+			idLabel = "ID:", timestampLabel = "Timestamp:", categoryLabel = "Category:",
+			statusLabel = "Status:", latitudeLabel = "Latitude(N):",
+			longitudeLabel = "Longitude(E):", windLabel = "Wind(kts):", 
+			pressureLabel = "Pressure(mb):", speedLabel = "Speed(kts):", 
+			directionLabel = "Direction(d):";
+	
+
+
+	// ----------------------------------------------//
+	// CONSTRUCTOR
+	//----------------------------------------------//
+	
+	
+	/**
+	 * This constructor takes a String object that is then tokenized using a comma “,” delimiter.
+	 * Once the string is tokenized, the array of tokens String objects are used to initialize
+	 * the instance fields of this class.
+	 * @param string String to be tokenized. 
+	 */
+	public StormRecord(String string){
+
+		
+		// Tokenize the input string using "," as the delimiter, then trim each token.
+		
+		String trimmedString = string.trim();
+		String[] tokens = trimmedString.split(",");
+		for(int i = 0; i< tokens.length; i++) {
+			tokens[i] = tokens[i].trim();
+		}
+		
+		
+		// Check each field in the list of tokens for empty values. If the values are
+		// empty, use default values, otherwise use the token value and convert it if
+		// necessary. 
+
+		//-------------------------//
+		// FIELD NAME: ID
+		//-------------------------//
+	
+		if(tokens[ID_POS].length() == 0) {
+			this.id = "";
+		}
+		else {
+			this.id = tokens[ID_POS];
+		}
+			
+		//-------------------------//
+		// FIELD NAME: YEAR	
+		//-------------------------//
+
+		if(tokens[YEAR_POS].length() == 0) {
+			this.year = 0;
+		}
+		else {
+			this.year = Integer.parseInt(tokens[YEAR_POS]);
+		}
+			
+		//-------------------------//
+		// FIELD NAME: NUMBER	
+		//-------------------------//
+		
+		if(tokens[NUMBER_POS].length() == 0) {
+			this.number = 0;
+		}
+		else {
+			this.number = Integer.parseInt(tokens[NUMBER_POS]);
+		}
+		
+		//-------------------------//
+		// FIELD NAME: NAME	
+		//-------------------------//
+		
+		if(tokens[NAME_POS].length() == 0) {
+			this.name = "";
+		}
+		else {
+			this.name = tokens[NAME_POS];
+		}
+		
+		//-------------------------//
+		// FIELD NAME: TIMESTAMP	
+		//-------------------------//
+		
+		
+		if(tokens[TIMESTAMP_POS].length() == 0) {
+			this.timestamp = "";
+		}
+		else {
+			this.timestamp = tokens[TIMESTAMP_POS];
+		}
+	
+		//-------------------------//
+		// FIELD NAME: LATITUDE	
+		//-------------------------//
+		
+		if(tokens[LATITUDE_POS].length() == 0) {
+			this.latitude = 0.0;
+		}
+		else {
+			this.latitude = Double.parseDouble(tokens[LATITUDE_POS]);
+		}
+			
+		//-------------------------//
+		// FIELD NAME: LONGITUDE	
+		//-------------------------//
+		
+		if(tokens[LONGITUDE_POS].length() == 0) {
+			this.longitude = 0.0;
+		}
+		else {
+			this.longitude = Double.parseDouble(tokens[LONGITUDE_POS]);
+		}
+		
+		//-------------------------//
+		// FIELD NAME: STATUS	
+		//-------------------------//
+		
+		if(tokens[STATUS_POS].length() == 0) {
+			this.status = "";
+		}
+		else {
+			this.status = tokens[STATUS_POS];
+		}
+		
+		
+		//-------------------------//
+		// FIELD NAME: WIND	
+		//-------------------------//
+		
+		if(tokens[WIND_POS].length() == 0) {
+			this.wind = 0.0;
+		}
+		else {
+			this.wind = Double.parseDouble(tokens[WIND_POS]);
+		}
+		
+		//-------------------------//
+		// FIELD NAME: PRESSURE	
+		//-------------------------//
+		
+		if(tokens[PRESSURE_POS].length() == 0) {
+			this.pressure = 0.0;
+		}
+		else {
+			this.pressure = Double.parseDouble(tokens[PRESSURE_POS]);
+		}
+		
+		//-------------------------//
+		// FIELD NAME: CATEGORY	
+		//-------------------------//
+		
+		if(tokens[CATEGORY_POS].length() == 0) {
+			this.category = 0;
+		}
+		else {
+			this.category = Integer.parseInt(tokens[CATEGORY_POS]);
+		}
+	
+		//-------------------------//
+		// FIELD NAME: SPEED	
+		//-------------------------//
+
+		if(tokens[SPEED_POS].length() == 0) {
+			this.speed = 0.0;
+		}
+		else {
+			this.speed = Double.parseDouble(tokens[SPEED_POS]);
+		}
+		
+		//-------------------------//
+		// FIELD NAME: DIRECTION	
+		//-------------------------//
+
+		if(tokens[DIRECTION_POS].length() == 0) {
+			this.direction = 0.0;
+		}
+		else {
+			this.direction = Double.parseDouble(tokens[DIRECTION_POS]);
+		}
+		
+	}
+	
+	// ----------------------------------------------//
+	// GETTERS
+	//----------------------------------------------//
+	
+	/**
+	 * Returns value in id field
+	 * @return id
+	 */
+	public String getID() {
+		return this.id;
+	}
+
+	/**
+	 * Return value in year field
+	 * @return year
+	 */
+	public int getYear() {
+		return this.year;
+	}
+	
+	/**
+	 * Return value in number field
+	 * @return number
+	 */
+	public int getNumber() {
+		return this.number;
+	}
+	
+	/**
+	 * Return value in name field
+	 * @return name
+	 */
+	public String getName() {
+		return this.name;
+	}
+	
+	/**
+	 * Return value in timestamp field
+	 * @return timestamp
+	 */
+	public String getTimestamp() {
+		return this.timestamp;
+	}
+	
+	/**
+	 * Return value in latitude field
+	 * @return latitude
+	 */
+	public double getLatitude() {
+		return this.latitude;
+	}
+	/**
+	 * Return value in longitude field
+	 * @return longitude
+	 */
+	public double getLongitude() {
+		return this.longitude;
+	}
+	
+	
+	/**
+	 * Return value in status field
+	 * @return status
+	 */
+	public String getStatus() {
+		return this.status;
+	}
+	
+	/**
+	 * Return value in wind field
+	 * @return wind
+	 */
+	public double getWind() {
+		return this.wind;
+	}
+	
+	/**
+	 * Return value in pressure field
+	 * @return pressure
+	 */
+	public double getPressure() {
+		return this.pressure;
+	}
+	
+	/**
+	 * Return value in category field
+	 * @return category
+	 */
+	public int getCategory() {
+		return this.category;
+	}
+	
+	/**
+	 * Return value in speed field
+	 * @return speed
+	 */
+	public double getSpeed() {
+		return this.speed;
+	}
+	
+	/**
+	 * Return value in direction field
+	 * @return direction
+	 */
+	public double getDirection() {
+		return this.direction;
+	}
+	
+	
+	// ----------------------------------------------//
+	// TO STRING
+	//----------------------------------------------//
+	
+	
+	@Override
+	public String toString() {
+		
+		// Creates StringBuilder report w/ separate lines for each field;
+		
+		StringBuilder stormRecordReport = new StringBuilder("\n");
+		
+		stormRecordReport.append(String.format("%-10s   %15s\n", nameLabel, this.name));
+		stormRecordReport.append(String.format("%-10s   %15d\n", yearLabel, this.year));
+		stormRecordReport.append(String.format("%-10s %15d\n", numberLabel, this.number));
+		stormRecordReport.append(String.format("%-10s %21s\n", idLabel, this.id));
+		stormRecordReport.append(String.format("%-10s %25s\n", timestampLabel, this.timestamp));
+		stormRecordReport.append(String.format("%-8s %15d\n", categoryLabel, this.category));
+		stormRecordReport.append(String.format("%-10s %15s\n", statusLabel, this.status));
+		stormRecordReport.append(String.format("%-11s %16.1f\n", latitudeLabel, this.latitude));
+		stormRecordReport.append(String.format("%-13s %15.1f\n", longitudeLabel, this.longitude));
+		stormRecordReport.append(String.format("%-13s %15.1f\n", windLabel, this.wind));
+		stormRecordReport.append(String.format("%-13s %15.1f\n", pressureLabel, this.pressure));
+		stormRecordReport.append(String.format("%-13s %15.1f\n", speedLabel, this.speed));
+		stormRecordReport.append(String.format("%-13s %16.1f\n", directionLabel, this.direction));
+
+		return stormRecordReport.toString();
+	}
+}
+
+
+	
+	
