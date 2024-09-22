@@ -1,71 +1,71 @@
 /**
- * The BoundingBox class is a simple concrete class that holds width 
- * and height values of a two-dimensional "bounding box" for shapes. 
- * A bounding box is the smallest 2D rectangle that will completely 
- * hold another 2D object. 
+ * The BoundingBox class is a simple concrete class that holds width
+ * and height values of a two-dimensional "bounding box" for shapes.
+ * A bounding box is the smallest 2D rectangle that will completely
+ * hold another 2D object.
  */
 public class BoundingBox {
-	
-	//--------------------------//
+
+	// --------------------------//
 	// FIELDS
-	//--------------------------//
-	
+	// --------------------------//
+
 	private double width;
 	private double height;
-	
-	
-	//--------------------------//
+
+	// --------------------------//
 	// CONSTRUCTORS
-	//--------------------------//
-	
-	
+	// --------------------------//
+
 	/**
 	 * A no-arg constructor that sets the width and height fields to 0.0.
 	 */
 	public BoundingBox() {
 		this.width = 0.0;
-		this.height = 0.0;	
+		this.height = 0.0;
 	}
-	
+
 	/**
-	 * A constructor that takes the width and height 
-	 * of the BoundingBox as double parameters. 
-	 * @param width width of the BoundingBox.
+	 * A constructor that takes the width and height
+	 * of the BoundingBox as double parameters.
+	 * 
+	 * @param width  width of the BoundingBox.
 	 * @param height height of the BoundingBox.
 	 */
 	public BoundingBox(double width, double height) {
 		this.width = width;
 		this.height = height;
 	}
-	
-	//--------------------------//
+
+	// --------------------------//
 	// METHODS
-	//--------------------------//
-	
+	// --------------------------//
+
 	/**
 	 * Returns the value of the width field.
-	 * @return 
+	 * 
+	 * @return
 	 */
 	public double getWidth() {
 		return this.width;
 	}
-	
+
 	/**
 	 * Returns the value of the height field.
+	 * 
 	 * @return
 	 */
 	public double getHeight() {
 		return this.height;
 	}
-	
+
 	/**
 	 * Returns the minimum of the width and height fields.
+	 * 
 	 * @return
 	 */
 	public double getMinDum() {
 		return this.width < this.height ? getWidth() : getHeight();
 	}
-	
-	
-	
+
 }
