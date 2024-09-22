@@ -1,3 +1,7 @@
+
+/**
+ * Circle is a concrete class that represents a two-dimensional Circle.
+ */
 public class Circle extends Shape {
 
 	// --------------------------//
