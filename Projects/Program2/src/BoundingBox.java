@@ -58,8 +58,12 @@ public class BoundingBox {
 		return this.height;
 	}
 	
+	/**
+	 * Returns the minimum of the width and height fields.
+	 * @return
+	 */
 	public double getMinDum() {
-		System.out.println("Test");
+		return this.width > this.height ? getWidth() : getHeight();
 	}
 	
 	

@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 public class Main {
 	
-	final static String FILE_NAME = "src/htracks_na_cps142_dcc.csv";
+	final static String FILE_NAME = "/Users/abereni4u/Dropbox/Github/CS2_DCC/Projects/Program1/src/htracks_na_cps142_dcc.csv";
 
 	/**
 	 * A public static method that is responsible for loading the data from a csv file. 
@@ -48,7 +48,8 @@ public class Main {
 			csvRecords.add(csvStormRecord);
 			
 		}
-				
+		
+		readCSV.close();
 		return csvRecords;
 	}
 	
@@ -73,7 +74,7 @@ public class Main {
 		System.out.printf("Total records:  %d\n\n", records.size());
 		
 		System.out.print("Hurricane Name: ");
-		
+	
 		return userInput.nextLine();
 
 	}
