@@ -2,7 +2,7 @@
  * This interface specifies four methods related to aspects of a 
  * 2D object that has a bounding box or size.
  */
-public abstract class Boundable {
+public interface Boundable {
 
 	/**
 	 * Defines the header of a method that 
