@@ -1,8 +1,4 @@
 /**
- * 
- */
-
-/**
  * The StormRecord Java class represents a single storm tracking event record in the database.
  * It consists of fields that holds information read from the “htracks_na_cps142_dcc.csv” file.
  */

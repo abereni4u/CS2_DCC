@@ -84,6 +84,9 @@ public abstract class Shape implements Boundable{
 	 * @return
 	 */
 	public String toString(){
+		
+		// Create StringBuilder object for Shape output and append lines for each
+		// field.
 		StringBuilder shapeReport = new StringBuilder();
 
 		shapeReport.append(String.format("\n%-20s\n", this.getName()));
@@ -91,6 +94,8 @@ public abstract class Shape implements Boundable{
 		shapeReport.append(String.format("	height: %-20.2f\n",this.height()));
 		shapeReport.append(String.format("	area: %-20.2f\n",this.area()));
 		shapeReport.append(String.format("	perimeter: %-20.2f\n",this.perimeter()));
+		
+		
 		return shapeReport.toString();
 	}
 
