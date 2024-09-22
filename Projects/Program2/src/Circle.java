@@ -21,7 +21,7 @@ public class Circle extends Shape {
 	 * @param diameter
 	 */
 	public Circle(double diameter) {
-		super(diameter, diameter);
+		super(diameter);
 	}
 
 	// --------------------------//

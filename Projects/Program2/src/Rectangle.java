@@ -17,12 +17,12 @@ public class Rectangle extends Shape{
 	}
 	
 	/**
-	 * Rectangle constructor taking a single size argument for both the width and 
-	 * height.
+	 * Rectangle constructor taking a single size argument. 
+	 * 
 	 * @param size width and height of the Rectangle.
 	 */
 	public Rectangle(double size){
-		super(size, size);	
+		super(size);	
 	}
 
 	/**
