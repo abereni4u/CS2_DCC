@@ -63,7 +63,7 @@ public class BoundingBox {
 	 * @return
 	 */
 	public double getMinDum() {
-		return this.width > this.height ? getWidth() : getHeight();
+		return this.width < this.height ? getWidth() : getHeight();
 	}
 	
 	
