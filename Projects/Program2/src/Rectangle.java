@@ -37,4 +37,22 @@ public class Rectangle extends Shape{
 	//--------------------------//
 	// METHODS
 	//--------------------------//
+	
+	@Override
+	public double perimeter(){
+		return 2.0*(this.width() + this.height());	
+	}
+
+	@Override
+	public double area(){
+		double area = this.width() * this.height();
+		return area;
+	}
+
+	@Override
+	public String getName(){
+		return "Rectangle";
+	}
+
 }
+	
