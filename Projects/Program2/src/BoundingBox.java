@@ -30,8 +30,8 @@ public class BoundingBox {
 	/**
 	 * A constructor that takes the width and height 
 	 * of the BoundingBox as double parameters. 
-	 * @param width 
-	 * @param height
+	 * @param width width of the BoundingBox.
+	 * @param height height of the BoundingBox.
 	 */
 	public BoundingBox(double width, double height) {
 		this.width = width;

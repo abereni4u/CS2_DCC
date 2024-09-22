@@ -89,11 +89,11 @@ public abstract class Shape implements Boundable{
 		// field.
 		StringBuilder shapeReport = new StringBuilder();
 
-		shapeReport.append(String.format("\n%-20s\n", this.getName()));
-		shapeReport.append(String.format("	width: %-20.2f\n",this.width())); 
-		shapeReport.append(String.format("	height: %-20.2f\n",this.height()));
-		shapeReport.append(String.format("	area: %-20.2f\n",this.area()));
-		shapeReport.append(String.format("	perimeter: %-20.2f\n",this.perimeter()));
+		shapeReport.append(String.format("%s\n", this.getName()));
+		shapeReport.append(String.format("	%-11s%,10.2f\n","width:", this.width())); 
+		shapeReport.append(String.format("	%-11s%,10.2f\n", "height:",this.height()));
+		shapeReport.append(String.format("	%-11s%,10.2f\n","area:",this.area()));
+		shapeReport.append(String.format("	%-11s%,10.2f\n","perimeter:",this.perimeter()));
 		
 		
 		return shapeReport.toString();

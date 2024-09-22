@@ -45,22 +45,47 @@ public class Main {
 		
 		// Step 1:  Rectangle 
 		// TODO: Create a rectangle with width of 16 and height of 9 and add to the data
+		Rectangle myRectangle = new Rectangle(16.0, 9.0);
+		data.add(myRectangle);
 		
 		// Step 2:  Circle
 		// TODO: Create and add to data, a Circle with diameter 16.
 		
+		Circle myCircle = new Circle(16.0);
+		data.add(myCircle);
+
 		// Step 3:  RightTriangle
 		// TODO: Create and add to data, a RightTriangle with width and height equal to 16.0
-		
+	
+		RightTriangle myRightTriangle = new RightTriangle(16.0);
+		data.add(myRightTriangle);
+
 		// Step 4:  IsoTriangle
 		// TODO: Create and add to data, a IsoTriangle with width 9 and height 16.
+
+		IsoTriangle myIsoTriangle = new IsoTriangle(9.0, 16.0);
+		data.add(myIsoTriangle);
+		
 
 		// Step 5:  Write code to print the current state of each shape
 		System.out.println("Shapes:");
 		// TODO:  Use an "Enhanced For Loop" to print to the console information for each shape in the data ArrayList
-		
+
+		for(Boundable shape: data){
+			System.out.println(shape.toString());
+		}
+
 		// Step 6:  Write code to find the shape with the smallest perimeter
 		Boundable shapeMinP = null;
+
+		for(Boundable shape: data){
+			// Swaps first element in array to minimum and updates if shape with
+			// lower perimeter is found.
+			if(shapeMinP == null || shape.perimeter() < shapeMinP.perimeter()){
+				shapeMinP = shape;
+			}
+		}
+
 		// TODO: Use an "Enhanced for Loop" to find the shape with the smallest perimeter in the data ArrayList and save in shapeMinP
 		System.out.println("Shape with smallest perimeter:");
 		System.out.println(shapeMinP);
@@ -69,12 +94,21 @@ public class Main {
 		
 		// Step 7:  Write code to find the shape with the largest area
 		Boundable shapeMaxA = null;
+
+		for(Boundable shape: data){
+			// Swaps first element in array to minimum and updates if shape with
+			// greater area is found.
+			if(shapeMaxA == null || shape.area() > shapeMaxA.area()){
+				shapeMaxA = shape;
+			}
+		}
+
 		// TODO: Use an "Enhanced for Loop" to find the shape with the largest area in the data ArrayList and save in shapeMaxA
 		System.out.println("Shape with largest area:");
 		System.out.println(shapeMaxA);
 		System.out.println();
 		
-				
+			
 	}
 
 }
