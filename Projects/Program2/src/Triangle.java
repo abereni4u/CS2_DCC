@@ -35,4 +35,21 @@ public class Triangle extends Shape{
 	// --------------------------//
 	// METHODS
 	// --------------------------//
+	
+	/**
+	 * Returns the area of a Triangle object based on the following equation:
+	 * (width * height) / 2.
+	 *
+	 * @return area of the Triangle.
+	 */
+	public double area(){
+		double w = this.width();
+		double h = this.height();
+		double area = (w*h) / 2;
+		return area;
+	}
+
+	public String getName(){
+		return "Triangle";
+	}
 }
