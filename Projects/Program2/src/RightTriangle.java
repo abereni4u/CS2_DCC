@@ -33,8 +33,25 @@ public class RightTriangle extends Triangle{
 		super(width, height);
 	}
 
-	
 	// --------------------------//
 	// METHODS
 	// --------------------------//
+	
+	/**
+	 * Returns the perimeter of the RightTriangle using the following
+	 * formula: perimeter = width + height + sqrt(width*2 + height*2).
+	 */
+	public double perimeter(){
+		double w = this.width();
+		double h = this.height();
+		double len = Math.sqrt(w*w + h*h);
+		double perimeter = w + h + len;
+		return perimeter;
+	}
+	
+	@Override
+	public String getName(){
+		return "RightTriangle";
+	}
+	
 }
