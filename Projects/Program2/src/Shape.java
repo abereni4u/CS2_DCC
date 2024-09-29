@@ -64,6 +64,7 @@ public abstract class Shape implements Boundable {
 	 * 
 	 * @return the width of the shape.
 	 */
+	@Override
 	public double width() {
 		return this.boundingbox.getWidth();
 	}
@@ -74,6 +75,7 @@ public abstract class Shape implements Boundable {
 	 * 
 	 * @return the height of the shape.
 	 */
+	@Override
 	public double height() {
 		return this.boundingbox.getHeight();
 	}
@@ -84,6 +86,7 @@ public abstract class Shape implements Boundable {
 	 *
 	 * @return
 	 */
+	@Override
 	public String toString() {
 
 		// Create StringBuilder object for Shape output and append lines for each

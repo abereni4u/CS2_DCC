@@ -3,7 +3,7 @@
  * IsocelesTriangle shape. It inherits directly from the Triangle abstract
  * class.
  */
-public class IsoTriangle extends RightTriangle {
+public class IsoTriangle extends Triangle {
 
 	// --------------------------//
 	// CONSTRUCTORS
@@ -43,6 +43,7 @@ public class IsoTriangle extends RightTriangle {
 	 * Returns the perimeter of the IsoTriangle based on the following 
 	 * equation: perimeter = width + 2 (sqrt((width / 2)^2) + (height^2)).
 	 */
+	@Override
 	public double perimeter(){
 		
 		// Set get width and height of triangle.

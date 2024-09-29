@@ -1,7 +1,7 @@
 /**
  * Triangle is an abstract class that represents a two dimensional Triangle shape. 
  */
-public class Triangle extends Shape{
+public abstract class Triangle extends Shape{
 
 
 	// --------------------------//
@@ -42,6 +42,7 @@ public class Triangle extends Shape{
 	 *
 	 * @return area of the Triangle.
 	 */
+	@Override
 	public double area(){
 		double w = this.width();
 		double h = this.height();
@@ -49,6 +50,7 @@ public class Triangle extends Shape{
 		return area;
 	}
 
+	@Override
 	public String getName(){
 		return "Triangle";
 	}

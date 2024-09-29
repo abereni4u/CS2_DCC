@@ -44,6 +44,7 @@ public class Circle extends Shape {
 	 * 
 	 * @return perimeter of Circle.
 	 */
+	@Override
 	public double perimeter() {
 		double perimeter = 2.0 * Math.PI * this.radius();
 		return perimeter;
@@ -55,6 +56,7 @@ public class Circle extends Shape {
 	 * 
 	 * @return area of the Circle.
 	 */
+	@Override
 	public double area() {
 		double r = this.radius();
 		double area = Math.PI * r * r;
