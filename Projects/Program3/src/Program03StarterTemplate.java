@@ -34,7 +34,7 @@ import javafx.stage.Stage;
  */
 public class Program03StarterTemplate extends Application{
 
-	public static final String DATA_FILE = "htracks_na_cps142_dcc.csv";
+	public static final String DATA_FILE = "src/htracks_na_cps142_dcc.csv";
 
 	// --------------------------
 	// Application instance fields.
@@ -71,6 +71,7 @@ public class Program03StarterTemplate extends Application{
 
 		// TODO: 3. Use the buildFileMenu and buildModeMenu methods to populate the menuBar.
 
+		menuBar.getMenus().add(buildFileMenu());
 
 		this.rootPane = new BorderPane();
 		this.rootPane.setTop(menuBar);
@@ -98,10 +99,19 @@ public class Program03StarterTemplate extends Application{
 	 * @return
 	 */
 	private Menu buildFileMenu() {
-		Menu fileMenu = null;
 		
 		// TODO: 6. Add code to create the File Menu, (Program 3 - Section 1.1.2)
 		
+		Menu fileMenu = new Menu("File");
+		
+		MenuItem exitMenu = new MenuItem("Exit");
+		
+		// Close application when "Exit" is clicked"
+		exitMenu.setOnAction(event -> {
+			stage.close();
+		});
+		
+		fileMenu.getItems().add(exitMenu);
 		return fileMenu;
 	}
 
@@ -374,7 +384,7 @@ public class Program03StarterTemplate extends Application{
 			readCSV = new Scanner(csvFile);
 			
 			// Skips the first two lines of the CSV 
-			for(int i = 0; i<2; i++)
+			for(int i = 1; i<=2; i++)
 				readCSV.nextLine();
 			
 			while(readCSV.hasNextLine()) {
@@ -382,8 +392,7 @@ public class Program03StarterTemplate extends Application{
 				csvStormRecord = new StormRecord(csvString);
 				csvRecords.add(csvStormRecord);
 			}
-		}
-		
+		}	
 		// handle file not found exception by displaying an error
 		catch(FileNotFoundException e) {
 			System.out.println("There was problem processing the file");
@@ -391,8 +400,7 @@ public class Program03StarterTemplate extends Application{
 			for (StackTraceElement msg : e.getStackTrace()) {
 				System.out.println("  " + msg);
 			}
-		}
-		
+		}	
 		finally	{
 			// readCSV contains DOES contain a file, so close it.
 			if(readCSV != null)
