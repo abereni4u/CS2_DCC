@@ -1,4 +1,4 @@
-//package reference;
+package reference;  // TODO: 1. Remove or replace with your own package name.
 
 
 import java.io.File;
@@ -6,10 +6,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.apple.laf.AquaButtonBorder.Toggle;
-
 import javafx.application.Application;
-import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -29,15 +26,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 //TODO: 2. Write your Project Documentation comment here.
-/**
- * CPS142 - Fall 2024
- * Program 3
- * @author Abereni Opuiyo
- * Simple test program for the Shape classes
- */
-public class Program03StarterTemplate extends Application{
+public class Program03StarterTemplateC extends Application{
 
-	public static final String DATA_FILE = "src/htracks_na_cps142_dcc.csv";
+	public static final String DATA_FILE = "htracks_na_cps142_dcc.csv";
 
 	// --------------------------
 	// Application instance fields.
@@ -74,8 +65,6 @@ public class Program03StarterTemplate extends Application{
 
 		// TODO: 3. Use the buildFileMenu and buildModeMenu methods to populate the menuBar.
 
-		menuBar.getMenus().add(buildFileMenu());
-		menuBar.getMenus().add(buildModeMenu());
 
 		this.rootPane = new BorderPane();
 		this.rootPane.setTop(menuBar);
@@ -89,13 +78,9 @@ public class Program03StarterTemplate extends Application{
 
 		// set the title
 		// TODO: 4. Set the title bar text
-		
-		stage.setTitle("Storm Record App");
 
 		// set the css mode
 		// TODO: 5. Load the preferred initial CSS file for light or dark mode
-	
-		scene.getStylesheets().add("light.css");
 
 		// Show the primary stage
 		primaryStage.show();
@@ -107,19 +92,10 @@ public class Program03StarterTemplate extends Application{
 	 * @return
 	 */
 	private Menu buildFileMenu() {
+		Menu fileMenu = null;
 		
 		// TODO: 6. Add code to create the File Menu, (Program 3 - Section 1.1.2)
 		
-		Menu fileMenu = new Menu("File");
-		
-		MenuItem exitMenu = new MenuItem("Exit");
-		
-		// Close application when "Exit" is clicked"
-		exitMenu.setOnAction(event -> {
-			stage.close();
-		});
-		
-		fileMenu.getItems().add(exitMenu);
 		return fileMenu;
 	}
 
@@ -129,34 +105,9 @@ public class Program03StarterTemplate extends Application{
 	 * @return
 	 */
 	private Menu buildModeMenu() {
+		Menu modeMenu = null;
+		
 		// TODO: 7. Add code to create the complete Mode Menu, (Program 3 - Section 1.1.3)
-	
-		// Create mode menu and radio menu items
-		Menu modeMenu = new Menu("Mode");
-		RadioMenuItem lightMode = new RadioMenuItem("Light");
-		RadioMenuItem darkMode = new RadioMenuItem("Dark");
-
-		// Create toggle group and add radio items to it
-		ToggleGroup styleToggleGroup = new ToggleGroup();
-		lightMode.setToggleGroup(styleToggleGroup);
-		darkMode.setToggleGroup(styleToggleGroup);
-	
-		// Set initial radio button selection
-		lightMode.setSelected(true);
-
-		//TODO: Change css style for light mode and dark mode
-		lightMode.setOnAction(event -> {
-				this.stage.getScene().getStylesheets().clear();
-				this.stage.getScene().getStylesheets().add("light.css");
-		});
-		darkMode.setOnAction(event -> {
-				this.stage.getScene().getStylesheets().clear();
-				this.stage.getScene().getStylesheets().add("dark.css");
-		});
-	
-		// Add radio button items to menu
-		modeMenu.getItems().add(lightMode);
-		modeMenu.getItems().add(darkMode);
 
 		return modeMenu;
 	}
@@ -174,12 +125,12 @@ public class Program03StarterTemplate extends Application{
 		//--------------------------------------------------------------------
 		// Setup the filter selector as a ComboBox with options 
 		// TODO: 8.a. In the line below, replace null with your code to create the ComboBox
-		ComboBox<String> filterSelector = new ComboBox<>(); 
+		ComboBox<String> filterSelector = null; 
 		
 		// TODO: 8.b. Initialize and configure the filterSelector (Program 3 - Section 1.1.4)
 		// Use the following algorithm to initialize the filterSelector ComboBox
 		// 
-		
+		// ArrayList<String> names = new ArrayList<>();
 		// for StormRecord record : this.data
 		//   if names does not contain record.getName() then
 		//      add record to names
@@ -187,15 +138,6 @@ public class Program03StarterTemplate extends Application{
 		// endFor
 		// add all items in the names array to the filterSelector
 		// Set the value of filterSelector to "Ivan".
-		
-		ArrayList<String> names = new ArrayList<>();
-		for(StormRecord record : this.data){
-			if(!names.contains(record.getName()))
-				names.add(record.getName());
-		}
-		filterSelector.getItems().addAll(names);
-		filterSelector.setValue("Ivan");
-		
 		
 		// TODO: 9. Filtered set statistics labels (Program 3 - Section 1.1.5)
 		// Create and style JavaFX Label controls with the following names: 
@@ -205,29 +147,16 @@ public class Program03StarterTemplate extends Application{
 		// maxStormSpeedTimestamp
 		// maxStormSpeed
 
-		Label totalRecordsLabel = new Label("Total Records:");
-		Label maxWindSpeedTimestamp = new Label("Strongest:");
-		Label maxWindSpeed = new Label("Wind Speed:");
-		
-		Label maxStormSpeedTimestamp = new Label("Fastest:");
-		Label maxStormSpeed = new Label("Storm Speed:");
-		
 		// TODO: 10. Setup the controls column (Program 3 - Section 1.1.5)
 		// Create the left-side controls column using a VBox.
 		// Add the Label instances declared and initialized above using
 		// VBox, HBox, and additional Label controls as need.
 		// Consider setting preferred widths, alignment, and padding
 		// to achieve a nice looking layout.
-		VBox controlLabelWind = new VBox(2, maxWindSpeedTimestamp, maxWindSpeed);
-		VBox controlLabelStorm = new VBox(2, maxStormSpeedTimestamp, maxStormSpeed);
-		
-		VBox controlColumnLeft = new VBox(20, filterSelector, totalRecordsLabel,
-				controlLabelWind, controlLabelStorm); // Replace null with your code to create and initialize the VBox
-		
-		controlColumnLeft.setPrefWidth(500);
-		// controlColumnLeft.setAlignment(Pos.CENTER);
-		controlColumnLeft.setPadding(new Insets(40, 40, 40, 40));
-		
+		VBox controlColumnLeft = null; // Replace null with your code to create and initialize the VBox
+
+
+
 		//--------------------------------------------------------------------
 		// Center Control Panel
 		// with City ListView selector
@@ -274,7 +203,7 @@ public class Program03StarterTemplate extends Application{
 		// Consider setting preferred widths, alignment, padding, size, etc.
 		// to achieve a nice looking layout.
 		HBox root = new HBox(20, 
-				controlColumnLeft, 
+				new Label("Replace this entire Label starting at 'new' and ending at ')' with controlColumnLeft"), 
 				new Label("Replace this entire Label starting at 'new' and ending at ')' with controlColumnCenter"), 
 				new Label("Replace this entire Label starting at 'new' and ending at ')' with controlColumnRight"));
 
@@ -417,52 +346,14 @@ public class Program03StarterTemplate extends Application{
 	 */
 	public static ArrayList<StormRecord> loadData() {
 
+		ArrayList<StormRecord> data = new ArrayList<>();
 		
 		// TODO: 20. Add your code  to load the StormRecrod data from the file
 		// NOTE: You must handle all exceptions here using try-catch-finally blocks.
 		// NOTE: Use your loadData method from Program 1 as a starting point.
 		
-		StormRecord csvStormRecord;
-		
-		String csvString;
-		
-		ArrayList<StormRecord> csvRecords = new ArrayList<>();
-		
-		Scanner readCSV = null; 
-		
-		try {
-			
-			File csvFile = new File(DATA_FILE);
-			
-			// csvFile exists so continue, otherwise exception thrown before this point 
-			
-			readCSV = new Scanner(csvFile);
-			
-			// Skips the first two lines of the CSV 
-			for(int i = 1; i<=2; i++)
-				readCSV.nextLine();
-			
-			while(readCSV.hasNextLine()) {
-				csvString = readCSV.nextLine();
-				csvStormRecord = new StormRecord(csvString);
-				csvRecords.add(csvStormRecord);
-			}
-		}	
-		// handle file not found exception by displaying an error
-		catch(FileNotFoundException e) {
-			System.out.println("There was problem processing the file");
-			System.out.println("Stack Trace:");
-			for (StackTraceElement msg : e.getStackTrace()) {
-				System.out.println("  " + msg);
-			}
-		}	
-		finally	{
-			// readCSV contains DOES contain a file, so close it.
-			if(readCSV != null)
-				readCSV.close();
-		}
-		
-		return csvRecords;
+
+		return data;
 
 	}
 
