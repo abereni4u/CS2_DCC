@@ -3,6 +3,7 @@
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.text.Format;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -204,13 +205,15 @@ public class Program03StarterTemplate extends Application{
 		// maxWindSpeed
 		// maxStormSpeedTimestamp
 		// maxStormSpeed
-
-		Label totalRecordsLabel = new Label("Total Records:");
-		Label maxWindSpeedTimestamp = new Label("Strongest:");
-		Label maxWindSpeed = new Label("Wind Speed:");
 		
-		Label maxStormSpeedTimestamp = new Label("Fastest:");
-		Label maxStormSpeed = new Label("Storm Speed:");
+		Label selectFilter = new Label("Select a Hurricane");
+		Label totalRecordsLabel = new Label();
+
+		Label maxWindSpeedTimestamp = new Label();
+		Label maxWindSpeed = new Label();
+		
+		Label maxStormSpeedTimestamp = new Label();
+		Label maxStormSpeed = new Label();
 		
 		// TODO: 10. Setup the controls column (Program 3 - Section 1.1.5)
 		// Create the left-side controls column using a VBox.
@@ -218,15 +221,16 @@ public class Program03StarterTemplate extends Application{
 		// VBox, HBox, and additional Label controls as need.
 		// Consider setting preferred widths, alignment, and padding
 		// to achieve a nice looking layout.
+		VBox controlLabelFilter = new VBox(2, selectFilter, filterSelector);
+		controlLabelFilter.setPrefWidth(600);
 		VBox controlLabelWind = new VBox(2, maxWindSpeedTimestamp, maxWindSpeed);
 		VBox controlLabelStorm = new VBox(2, maxStormSpeedTimestamp, maxStormSpeed);
 		
-		VBox controlColumnLeft = new VBox(20, filterSelector, totalRecordsLabel,
+		VBox controlColumnLeft = new VBox(20, controlLabelFilter, totalRecordsLabel,
 				controlLabelWind, controlLabelStorm); // Replace null with your code to create and initialize the VBox
 		
-		controlColumnLeft.setPrefWidth(500);
-		// controlColumnLeft.setAlignment(Pos.CENTER);
-		controlColumnLeft.setPadding(new Insets(40, 40, 40, 40));
+		//controlColumnLeft.setPrefWidth(500);
+		controlColumnLeft.setPadding(new Insets(40, 10, 40, 40));
 		
 		//--------------------------------------------------------------------
 		// Center Control Panel
@@ -238,16 +242,22 @@ public class Program03StarterTemplate extends Application{
 		// Replace "null" below with your code to instantiate a ListView.
 		// Make sure that the ListView is in single selection mode.
 		// Style using preferred widths and heights, etc. as needed
-		ListView<String> stormListView = null;
-
+		ListView<String> stormListView = new ListView<>();
+		stormListView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);	
+		
+		
 		// TODO: 12. Center Control column (Program 3 - Section 1.1.6)
 		// Create the center control column VBox and include the stormListView ListView 
 		// and an appropriate Label.  
 		// Replace "null" below with your code to instantiate a VBox.
 		// Consider setting preferred widths, alignment, and padding
 		// to achieve a nice looking layout.
-		VBox controlColumnCenter = null; 
 		
+		Label stormListLabel = new Label("Select a Storm Record");
+		VBox controlColumnCenter = new VBox(stormListLabel, stormListView); 
+		
+		controlColumnCenter.setPrefWidth(700);
+		controlColumnCenter.setPadding(new Insets(40,10,40,10));
 		
 		//--------------------------------------------------------------------
 		// Right-side Control Panel
@@ -257,14 +267,19 @@ public class Program03StarterTemplate extends Application{
 		// Hurricane Information column
 		// TODO: 13. Declare and initialize a Label called stormRecrodInfoLabel
 
+		Label stormRecordInfoLabel = new Label();
+				
 		// TODO: 14. Create the right-side column(Program 3 - Section 1.1.6)
 		// Create the right-side control column including the stormRecrodInfoLabel Label 
 		// and an appropriate "Selected City" Label 
 		// Replace "null" below with your code to instantiate a VBox.
 		// Consider setting preferred widths, alignment, and padding
 		// to achieve a nice looking layout.
-		VBox controlColumnRight = null;
-
+		Label selectedStorm = new Label("Selected Storm Record");
+		VBox controlColumnRight = new VBox(selectedStorm, stormRecordInfoLabel);
+		
+		controlColumnRight.setPrefWidth(500);
+		controlColumnRight.setPadding(new Insets(40,40,40,40));
 		
 		//--------------------------------------------------------------------
 		// Setup the outside view wrappers
@@ -275,8 +290,8 @@ public class Program03StarterTemplate extends Application{
 		// to achieve a nice looking layout.
 		HBox root = new HBox(20, 
 				controlColumnLeft, 
-				new Label("Replace this entire Label starting at 'new' and ending at ')' with controlColumnCenter"), 
-				new Label("Replace this entire Label starting at 'new' and ending at ')' with controlColumnRight"));
+				controlColumnCenter,
+				controlColumnRight);
 
 
 		//--------------------------------------------------------------------
@@ -359,7 +374,50 @@ public class Program03StarterTemplate extends Application{
 		//         // Add the info String to the stormListView items as described in Section 13.4.
 		//     }
 		//
-		UpdateHandler filterUpdateHandler = null;		
+		UpdateHandler filterUpdateHandler = () -> {
+			stormRecordInfoLabel.setText("");
+			filteredData = new ArrayList<>();
+			
+			String searchTerm = filterSelector.getValue().toLowerCase();
+			
+			StormRecord maxWind = null;
+			StormRecord maxSpeed = null;
+			
+			for(StormRecord record: data) {
+				if(searchTerm.length() > 0 && record.getName().toLowerCase().startsWith(searchTerm))
+					filteredData.add(record);
+					
+					if(maxWind == null || maxWind.getWind() < record.getWind()) {
+						maxWind = record;
+					}
+					
+					if(maxSpeed == null || maxSpeed.getSpeed() < record.getSpeed()) {
+						maxSpeed = record;
+					}
+				
+			}
+
+			totalRecordsLabel.setText("Total Records: " + String.valueOf(filteredData.size()));
+
+			maxWindSpeedTimestamp.setText("Strongest: " + maxWind.getTimestamp());
+			maxWindSpeed.setText("Wind Speed: " + String.valueOf(maxWind.getSpeed()));
+
+			maxStormSpeedTimestamp.setText("Fastest: " + maxSpeed.getTimestamp());
+			maxStormSpeed.setText("Storm Speed: " + String.valueOf(maxSpeed.getSpeed()));
+
+			stormListView.getSelectionModel().clearSelection();
+			stormListView.getItems().clear();
+
+			for(StormRecord record: filteredData){
+					String info = String.format("%s cat: %d lat: %f long: %f", 
+					record.getTimestamp(),
+					record.getCategory(),
+					record.getLatitude(),
+					record.getLongitude());
+					stormListView.getItems().add(info);
+			};
+
+		};		
 
 		//--------------------------------------------------------------------
 		// Setup control event handlers
@@ -371,7 +429,9 @@ public class Program03StarterTemplate extends Application{
 		// Uncomment the line below and add your code where indicated.
 		// You may use a lambda expression or anonymous inner class.
 
-		// filterSelector.setOnAction( /* your code goes in here */ );				
+		filterSelector.setOnAction(event -> {
+			filterUpdateHandler.update();	
+		});				
 
 		
 		// TODO: 18. Setup ListView listener for the stormListView - 
@@ -398,11 +458,17 @@ public class Program03StarterTemplate extends Application{
 		// Uncomment the line below and add your code where indicated.
 		// You may use a lambda expression or anonymous inner class.
 		
-		// stormListView.getSelectionModel().selectedItemProperty().addListener( /* your code goes here */ ); 
+		
+		stormListView.getSelectionModel().selectedItemProperty().addListener( event -> {
+			int selectedIndex = stormListView.getSelectionModel().getSelectedIndex();
 
+			StormRecord listViewRecord = filteredData.get(selectedIndex);
+
+			stormRecordInfoLabel.setText(listViewRecord.toString());
+		});
 
 		// TODO: 19. Initialize the display at startup by calling following line of code. Just uncomment it.
-		// filterUpdateHandler.update();
+	 filterUpdateHandler.update();
 
 
 		return root;
