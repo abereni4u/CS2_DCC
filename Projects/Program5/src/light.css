@@ -1,0 +1,47 @@
+.root{
+	-fx-background-color: white;
+}
+
+.control-column-left, .control-column-right{
+	-fx-background-color: #ffe0a8;  
+	-fx-border-color: black;
+	-fx-border-width: 2;  
+	-fx-border-radius: 5;  
+	-fx-background-radius: 10;  
+}
+
+.list-view .list-cell:selected {
+    -fx-background-color: #ffe0a8; 
+    -fx-text-fill: black; 
+}
+
+.slider .thumb {
+    -fx-background-color: white; 
+    -fx-border-color: #deb05d;   
+    -fx-border-radius: 15px;     
+    -fx-background-radius: 15px;
+    -fx-effect: dropshadow(gaussian, #deb05d, 5, 0.5, 0.0, 0.0);
+}
+
+.slider .thumb:pressed {
+    -fx-background-color: #deb05d; 
+    -fx-border-color: #deb05d;     
+    -fx-effect: dropshadow(gaussian, #deb05d, 5, 0.5, 0.0, 0.0);
+}
+
+.storm-list-view{
+	-fx-font-family: 'Courier New';
+}
+.heading-label{
+	-fx-font-weight: bold;
+	-fx-font-size: 16px; 
+	-fx-text-fill: black; 
+}
+
+.control-column-center{
+	-fx-background-color: #fff4dd;
+	-fx-border-color: black;
+	-fx-border-width: 2;  
+	-fx-border-radius: 5;  
+	-fx-background-radius: 10;  	
+}
