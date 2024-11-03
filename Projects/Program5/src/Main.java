@@ -447,30 +447,55 @@ public class Main extends Application {
 				+ "[M]M/[D]D/YY [h]h:mm\n"
 				+ "For example: 9/10/77 3:00");
 		TextField searchTerm = new TextField();
-		Button searchButton = new Button("Search");
+		Button searchButton = new Button("SEARCH");
 		Label searchResult = new Label();
 		
 		// Grouping of controls for search scene
-		VBox leftSide = new VBox(2,instructionText, searchTerm, searchButton);
+		VBox leftSide = new VBox(10,instructionText, searchTerm, searchButton);
 		VBox rightSide = new VBox(searchResult);
 		HBox searchLayout = new HBox(10, leftSide, rightSide);
 		VBox searchScreen = new VBox(10, titleText, searchLayout);
+	
+		// Styling of controls
+		titleText.getStyleClass().add("search-title");
+	
+		instructionText.getStyleClass().add("search-left");
+		searchResult.getStyleClass().add("search-right");
+		searchButton.setPrefWidth(100);
 		
+		leftSide.getStyleClass().add("control-column-left");
+		leftSide.setPrefHeight(350);
+		leftSide.setPrefWidth(520);
+		leftSide.setPadding(new Insets(20));
+		leftSide.setAlignment(Pos.CENTER_LEFT);
+		
+		rightSide.getStyleClass().add("control-column-right");
+		rightSide.setPrefWidth(520);
+		rightSide.setPadding(new Insets(20));
+		
+		searchScreen.setPadding(new Insets(20));
+		searchScreen.setAlignment(Pos.CENTER);
+	
+		// Search button event register
 		searchButton.setOnAction(event -> {
 			// Get the searchText from the searchTextField 
 			String searchText = searchTerm.getText();
-			// 2. Create a StormRecord with the timestamp we want to find
+			
+			// Create a StormRecord with the timestamp we want to find
 			
 			StormRecord toFind = new StormRecord(); 
 			toFind.setTimestamp(searchText);
-			// 2. Get the index of the object in this.data,
+			
+			// Get the index of the object in this.data,
 			// using the recursive binary search
+			
 			int searchIndex = Searcher.search(this.data, toFind);
-			// 3. if the searchIndex is less than 0 then display an appropriate not found message
+			
+			// if the searchIndex is less than 0 then display an appropriate not found message
 			if (searchIndex < 0) {
 				searchResult.setText("No records found for timestamp:\n" + searchText);
 			}
-			// 4. Otherwise get object at searchIndex of this.data
+			// Otherwise get object at searchIndex of this.data
 			else {
 				searchResult.setText(this.data.get(searchIndex).toString());
 			}
@@ -515,6 +540,7 @@ public class Main extends Application {
 				csvRecords.add(csvStormRecord);
 			}
 			
+			// Sort the list based on each Storm Record's timestamp.
 			Sorter.sort(csvRecords);
 		}
 		// handle file not found exception by displaying an error

@@ -1,5 +1,5 @@
 .root{
-	-fx-background-color: black;
+	-fx-background-color: #401401;
 }
 
 .control-column-left, .control-column-right{
@@ -48,10 +48,14 @@ VBox .label {
 .storm-list-view{
 	-fx-font-family: 'Courier New';
 }
-.heading-label{
+.heading-label, .search-title{
 	-fx-font-weight: bold;
 	-fx-font-size: 16px; 
 	-fx-text-fill: white; 
+}
+
+.search-title{
+	-fx-font-size: 30px;
 }
 
 .control-column-center{
@@ -62,3 +66,17 @@ VBox .label {
 	-fx-background-radius: 10;  	
 }
 
+.button{
+	-fx-font-weight: bold;
+	-fx-font-size: 16px;
+}
+
+.search-left{
+	-fx-font-size: 18px;
+	-fx-font-weight: bold;
+}
+
+.search-right{
+	-fx-font-size: 20px;
+	-fx-font-weightL: bold;
+}
