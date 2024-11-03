@@ -439,6 +439,12 @@ public class Main extends Application {
 		return root;
 	} // getStormRecordBrowserScene
 
+	
+	/**
+	 * Creates and returns the user interface that implements the Search feature. 
+	 * 
+	 * @return user interface for Search
+	 */
 	private Pane getSearchScene() {
 		
 		// Controls for search scene

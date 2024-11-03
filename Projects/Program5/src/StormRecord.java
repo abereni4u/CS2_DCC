@@ -292,7 +292,10 @@ public class StormRecord implements Comparable<StormRecord> {
 	//----------------------------------------------//
 	// SETTERS 
 	//----------------------------------------------//
-	
+	/**
+	 * Change StormRecord timestamp to 
+	 * @param timestamp the timestamp to be placed in the StormRecord object.
+	 */
 	public void setTimestamp(String timestamp) {
 		this.timestamp = timestamp;
 	}
