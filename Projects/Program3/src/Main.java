@@ -371,7 +371,7 @@ public class Main extends Application {
 	 * 
 	 * @return - the ArrayList of StormRecord Objects
 	 */
-	public static ArrayList<StormRecord> loadData() {
+	private static ArrayList<StormRecord> loadData() {
 		
 		// Create a placeholder StormRecord object and an arraylist of StormRecords then
 		// open the csv file and create a StormRecord object from each string.

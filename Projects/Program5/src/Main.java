@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -19,7 +20,9 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -112,12 +115,38 @@ public class Main extends Application {
 		Menu fileMenu = new Menu("File");
 
 		MenuItem exitMenu = new MenuItem("Exit");
+		
+		// create "browse" and "search" radio menu items and add them to a 
+		// toggle group
+		
+		RadioMenuItem browseMenu = new RadioMenuItem("Browse");
+		RadioMenuItem searchMenu = new RadioMenuItem("Search");
+		SeparatorMenuItem seperator = new SeparatorMenuItem();
+		
+		ToggleGroup modeToggle = new ToggleGroup();
+		browseMenu.setToggleGroup(modeToggle);
+		searchMenu.setToggleGroup(modeToggle);
+		
 
 		// Close application when "Exit" is clicked"
 		exitMenu.setOnAction(event -> {
 			stage.close();
 		});
-
+		
+		// Change ui layout when "browse" radio menu item is selected
+		browseMenu.setOnAction(event -> {
+			this.rootPane.setCenter(getStormRecordBrowserScene());
+		});
+		
+		// change ui layout when "search" radio menu item is selected
+		searchMenu.setOnAction(event -> {
+			this.rootPane.setCenter(getSearchScene());
+		});
+		
+		
+		fileMenu.getItems().add(browseMenu);
+		fileMenu.getItems().add(searchMenu);
+		fileMenu.getItems().add(seperator);
 		fileMenu.getItems().add(exitMenu);
 		return fileMenu;
 	}
@@ -410,6 +439,45 @@ public class Main extends Application {
 		return root;
 	} // getStormRecordBrowserScene
 
+	private Pane getSearchScene() {
+		
+		// Controls for search scene
+		Label titleText = new Label("Storm Search");
+		Label instructionText = new Label("Enter a timestamp\n"
+				+ "[M]M/[D]D/YY [h]h:mm\n"
+				+ "For example: 9/10/77 3:00");
+		TextField searchTerm = new TextField();
+		Button searchButton = new Button("Search");
+		Label searchResult = new Label();
+		
+		// Grouping of controls for search scene
+		VBox leftSide = new VBox(2,instructionText, searchTerm, searchButton);
+		VBox rightSide = new VBox(searchResult);
+		HBox searchLayout = new HBox(10, leftSide, rightSide);
+		VBox searchScreen = new VBox(10, titleText, searchLayout);
+		
+		searchButton.setOnAction(event -> {
+			// Get the searchText from the searchTextField 
+			String searchText = searchTerm.getText();
+			// 2. Create a StormRecord with the timestamp we want to find
+			
+			StormRecord toFind = new StormRecord(); 
+			toFind.setTimestamp(searchText);
+			// 2. Get the index of the object in this.data,
+			// using the recursive binary search
+			int searchIndex = Searcher.search(this.data, toFind);
+			// 3. if the searchIndex is less than 0 then display an appropriate not found message
+			if (searchIndex < 0) {
+				searchResult.setText("No records found for timestamp:\n" + searchText);
+			}
+			// 4. Otherwise get object at searchIndex of this.data
+			else {
+				searchResult.setText(this.data.get(searchIndex).toString());
+			}
+		});
+		
+		return searchScreen;
+	}
 	/**
 	 * This method loads record data from an external file and
 	 * returns it as an ArrayList of StormRecord objects.
