@@ -1,4 +1,4 @@
-package reference;
+//package reference;
 
 /**
  * Interface that handles a simple update

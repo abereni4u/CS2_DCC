@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.text.Format;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 import java.util.Scanner;
 import com.apple.laf.AquaButtonBorder.Toggle;
 import javafx.application.Application;
@@ -52,7 +55,7 @@ public class Main extends Application {
 	private MenuBar menuBar;
 
 	// Data related fields
-	private ArrayList<StormRecord> data;
+	private Map<String, StormRecord> data;
 
 	private ArrayList<StormRecord> filteredData;
 
@@ -222,7 +225,7 @@ public class Main extends Application {
 		VBox sliderBox = new VBox(2, sliderLabel,catSlider);
 		
 		// if a name in the storm record isn't in the names arraylist already, add it
-		for (StormRecord record : this.data) {
+		for (StormRecord record : data.values()) {
 			if (!names.contains(record.getName()))
 				names.add(record.getName());
 		}
@@ -329,29 +332,35 @@ public class Main extends Application {
 			// get selected filter from comboBox to be searched in StormRecord array. 
 			String searchTerm = filterSelector.getValue().toLowerCase();
 			
-			// Loop through storm records list and add matching storm record and category to
-			// filtered data list to be displayed in center ListView. Update max 
-			// wind / max speed if records with greater values are found in the list.
-
+			// Convert the map of StormRecords to a stream, filter it based on the selected
+			// search term and category slider, then add each record to the filtered data arraylist.
+			
+			
 			StormRecord maxWind = null;
 			StormRecord maxSpeed = null;
 
-			for (StormRecord record : data) {
-				if (searchTerm.length() > 0 && record.getName().toLowerCase().startsWith(searchTerm) && record.getCategory() >= catSlider.getValue())
-					filteredData.add(record);
-			}
+			data.values().stream().filter(record -> searchTerm.length() > 0 && 
+					record.getName().toLowerCase().startsWith(searchTerm) && 
+					record.getCategory()>= catSlider.getValue()).sorted()
+					.forEach(record -> filteredData.add(record));
+		
+			// Convert the filteredData arraylist to a stream and use the max function to 
+			// return an Optional container of a StormRecord with the highest wind and speed in the 
+			// stream. If the optional container isn't empty, get the StormRecord it holds and 
+			// set maxWind / maxSpeed to it.
 			
-			for (StormRecord catRecord: filteredData) {
-				if (maxWind == null || maxWind.getWind() < catRecord.getWind()) {
-					maxWind = catRecord;
-				}
-
-				if (maxSpeed == null || maxSpeed.getSpeed() < catRecord.getSpeed()) {
-					maxSpeed = catRecord;
-				}
-			}
+			Optional<StormRecord> opt = filteredData.stream()
+					.max((r1,r2) -> Double.compare(r1.getWind(), r2.getWind()));
 			
+			if(opt.isPresent() == true)
+				maxWind=opt.get();
 
+			opt = filteredData.stream()
+					.max((r1,r2) -> Double.compare(r1.getSpeed(), r2.getSpeed()));
+			
+			if(opt.isPresent() == true)
+				maxSpeed=opt.get();
+			
 			// Set labels in left hand column to display info of selected filter's total amount,
 			// strongest wind, and fastest storm speed.
 			totalRecordsLabel.setText("Total Records:  " + String.valueOf(filteredData.size()));
@@ -489,8 +498,8 @@ public class Main extends Application {
 			
 			// Create a StormRecord with the timestamp we want to find
 			
-			StormRecord toFind = new StormRecord(); 
-			toFind.setTimestamp(searchText);
+			// StormRecord toFind = new StormRecord(); 
+			// toFind.setTimestamp(searchText);
 			
 			// Get the index of the object in this.data,
 			// using the recursive binary search
@@ -498,12 +507,12 @@ public class Main extends Application {
 			// int searchIndex = Searcher.search(this.data, toFind);
 			
 			// if the searchIndex is less than 0 then display an appropriate not found message
-			if (searchIndex < 0) {
+			if (this.data.get(searchText) == null) {
 				searchResult.setText("No records found for timestamp:\n" + searchText);
 			}
 			// Otherwise get object at searchIndex of this.data
 			else {
-				searchResult.setText(this.data.get(searchIndex).toString());
+				searchResult.setText(this.data.get(searchText).toString());
 			}
 		});
 		
@@ -515,7 +524,7 @@ public class Main extends Application {
 	 * 
 	 * @return - the ArrayList of StormRecord Objects
 	 */
-	private static ArrayList<StormRecord> loadData() {
+	private static Map<String,StormRecord> loadData() {
 		
 		// Create a placeholder StormRecord object and an arraylist of StormRecords then
 		// open the csv file and create a StormRecord object from each string.
@@ -524,7 +533,7 @@ public class Main extends Application {
 
 		String csvString;
 
-		ArrayList<StormRecord> csvRecords = new ArrayList<>();
+		Map<String,StormRecord> csvRecords = new HashMap<>();
 
 		Scanner readCSV = null;
 
@@ -543,11 +552,9 @@ public class Main extends Application {
 			while (readCSV.hasNextLine()) {
 				csvString = readCSV.nextLine();
 				csvStormRecord = new StormRecord(csvString);
-				csvRecords.add(csvStormRecord);
+				csvRecords.put(csvStormRecord.getTimestamp(), csvStormRecord);
 			}
 			
-			// Sort the list based on each Storm Record's timestamp.
-			// Sorter.sort(csvRecords);
 		}
 		// handle file not found exception by displaying an error
 		catch (FileNotFoundException e) {
