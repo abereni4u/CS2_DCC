@@ -2,15 +2,13 @@
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.text.Format;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Scanner;
-import com.apple.laf.AquaButtonBorder.Toggle;
+
 import javafx.application.Application;
-import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
