@@ -29,6 +29,7 @@ public class LinkedSet<T> implements Set<T>{
 	}
 	
 	private Node first;
+	private Node last;
 	private int count;
 
 	@Override
@@ -71,6 +72,7 @@ public class LinkedSet<T> implements Set<T>{
 		// Check if the linked set is empty
 		if(this.isEmpty() == true) {
 			this.first = new Node(e);
+			this.last = this.first;
 			this.count++;
 			return true;
 		}
@@ -78,11 +80,9 @@ public class LinkedSet<T> implements Set<T>{
 		else if(this.contains(e) == true){
 			return false;	
 		}
-		else {
-			Node ref = this.first;
-			while(ref.next != null)
-				ref = ref.next;	
-			ref.next = new Node(e);
+		else {	
+			this.last.next = new Node(e);
+			this.last = this.last.next;
 			this.count++;
 			return true;
 		}
@@ -111,22 +111,33 @@ public class LinkedSet<T> implements Set<T>{
 		if(this.isEmpty() == true) {
 			return false;
 		}
-		// check if the linked set actually contains the value being removed
-		else if(this.contains(o) == false) {
-			return false;	
-		}
-		// check if the first value in the list is equal to the value we want removed
+		
+		// check if the first element equals the value to be removed.	
 		else if(this.first.value.equals(o)) {
 			this.first = this.first.next;
 			this.count--;
 			return true;
 		}
-		// traverse through the list until you get right before the value to be removed.
+		
+		// traverse through the set until you get right before the value to be removed.
 		else {
+			
 			Node ref = this.first;
-			while (!(ref.next.value.equals(o)))
+			while ((ref.next != null) && !(ref.next.value.equals(o)))
 				ref = ref.next;
+			
+			// Linked set doesn't contain the value to be removed
+			if(ref.next == null)
+				return false;
+			
+			// Linked set does contain the value to be removed so change the 'next' reference
 			ref.next = ref.next.next;
+			
+			// If the value we removed was the last in the list, update 'last' to our reference
+			if(ref.next == null) {
+				this.last = ref;
+			}
+			
 			this.count--;
 			return true;
 		}
